@@ -245,8 +245,9 @@ class WebSocket(object):
             Pre-initialized stream socket.
         """
         self.sock_opt.timeout = options.get('timeout', self.sock_opt.timeout)
+        source = options.get('source')
         self.sock, addrs = connect(url, self.sock_opt, proxy_info(**options),
-                                   options.pop('socket', None))
+                                   options.pop('socket', None), source=source)
 
         try:
             self.handshake_response = handshake(self.sock, *addrs, **options)

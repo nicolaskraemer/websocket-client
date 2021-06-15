@@ -39,6 +39,7 @@ if __name__ == "__main__":
     else:
         host = sys.argv[1]
     ws = websocket.WebSocketApp(host,
+                                source="0.0.0.0",
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close)

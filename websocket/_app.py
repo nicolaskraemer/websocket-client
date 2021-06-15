@@ -93,7 +93,7 @@ class WebSocketApp(object):
     Higher level of APIs are provided. The interface is like JavaScript WebSocket object.
     """
 
-    def __init__(self, url, header=None,
+    def __init__(self, url, source=None, header=None,
                  on_open=None, on_message=None, on_error=None,
                  on_close=None, on_ping=None, on_pong=None,
                  on_cont_message=None,
@@ -157,6 +157,7 @@ class WebSocketApp(object):
             List of available sub protocols. Default is None.
         """
         self.url = url
+        self.source = source
         self.header = header if header is not None else []
         self.cookie = cookie
 
@@ -310,7 +311,7 @@ class WebSocketApp(object):
                 enable_multithread=True)
             self.sock.settimeout(getdefaulttimeout())
             self.sock.connect(
-                self.url, header=self.header, cookie=self.cookie,
+                self.url, source=self.source, header=self.header, cookie=self.cookie,
                 http_proxy_host=http_proxy_host,
                 http_proxy_port=http_proxy_port, http_no_proxy=http_no_proxy,
                 http_proxy_auth=http_proxy_auth, subprotocols=self.subprotocols,
