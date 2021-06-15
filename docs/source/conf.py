@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.append(os.path.abspath('../..'))
-sys.path.append(os.path.abspath('websocket'))
+sys.path.append(os.path.abspath('wss'))
 
 
 # Don't skip __init__, which is skipped by default
@@ -29,7 +29,7 @@ def setup(app):
 
 
 # -- Project information -----------------------------------------------------
-project = 'websocket-client'
+project = 'wss-client'
 copyright = '2021'
 author = 'liris'
 

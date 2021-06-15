@@ -23,7 +23,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 
 import os
 import os.path
-import websocket as ws
+import wss as ws
 import sys
 import ssl
 import unittest

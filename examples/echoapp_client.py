@@ -1,4 +1,4 @@
-import websocket
+import wss
 from threading import Thread
 import time
 import sys
@@ -33,15 +33,15 @@ def on_open(ws):
 
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
+    wss.enableTrace(True)
     if len(sys.argv) < 2:
         host = "ws://echo.websocket.org/"
     else:
         host = sys.argv[1]
-    ws = websocket.WebSocketApp(host,
-                                source="0.0.0.0",
-                                on_message=on_message,
-                                on_error=on_error,
-                                on_close=on_close)
+    ws = wss.WebSocketApp(host,
+                          source="0.0.0.0",
+                          on_message=on_message,
+                          on_error=on_error,
+                          on_close=on_close)
     ws.on_open = on_open
     ws.run_forever()

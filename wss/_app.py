@@ -3,7 +3,7 @@
 """
 
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -108,9 +108,9 @@ class WebSocketApp(object):
         url: str
             Websocket url.
         header: list or dict
-            Custom header for websocket handshake.
+            Custom header for wss handshake.
         on_open: function
-            Callback object which is called at opening websocket.
+            Callback object which is called at opening wss.
             on_open has one argument.
             The 1st argument is this class object.
         on_message: function
@@ -195,7 +195,7 @@ class WebSocketApp(object):
 
     def close(self, **kwargs):
         """
-        Close websocket connection.
+        Close wss connection.
         """
         self.keep_running = False
         if self.sock:
@@ -223,7 +223,7 @@ class WebSocketApp(object):
         """
         Run event loop for WebSocket framework.
 
-        This loop is an infinite loop and is alive while websocket is available.
+        This loop is an infinite loop and is alive while wss is available.
 
         Parameters
         ----------

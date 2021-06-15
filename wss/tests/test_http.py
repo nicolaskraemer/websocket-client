@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -23,12 +23,12 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 
 import os
 import os.path
-import websocket as ws
-from websocket._http import proxy_info, read_headers, _open_proxied_socket, _tunnel, _get_addrinfo_list, connect
+import wss as ws
+from wss._http import proxy_info, read_headers, _open_proxied_socket, _tunnel, _get_addrinfo_list, connect
 import sys
 import unittest
 import ssl
-import websocket
+import wss
 import socks
 import socket
 sys.path[0:0] = [""]
@@ -141,12 +141,12 @@ class HttpTest(unittest.TestCase):
                         ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA",
             "ecdh_curve": "prime256v1"
         }
-        ws_ssl1 = websocket.WebSocket(sslopt=ssloptions)
+        ws_ssl1 = wss.WebSocket(sslopt=ssloptions)
         ws_ssl1.connect("wss://api.bitfinex.com/ws/2")
         ws_ssl1.send("Hello")
         ws_ssl1.close()
 
-        ws_ssl2 = websocket.WebSocket(sslopt={"check_hostname": True})
+        ws_ssl2 = wss.WebSocket(sslopt={"check_hostname": True})
         ws_ssl2.connect("wss://api.bitfinex.com/ws/2")
         ws_ssl2.close
 

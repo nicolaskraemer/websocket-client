@@ -22,8 +22,8 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 """
 
 import os
-import websocket as ws
-from websocket._abnf import *
+import wss as ws
+from wss._abnf import *
 import sys
 import unittest
 sys.path[0:0] = [""]
