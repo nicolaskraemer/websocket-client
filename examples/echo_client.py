@@ -2,7 +2,7 @@ import wss
 
 if __name__ == "__main__":
     wss.enableTrace(True)
-    ws = wss.create_connection("ws://echo.wss.org/")
+    ws = wss.create_connection("ws://echo.websocket.org/")
     print("Sending 'Hello, World'...")
     ws.send("Hello, World")
     print("Sent")

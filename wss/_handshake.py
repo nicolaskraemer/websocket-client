@@ -77,7 +77,7 @@ def _pack_hostname(hostname):
 def _get_handshake_headers(resource, host, port, options):
     headers = [
         "GET %s HTTP/1.1" % resource,
-        "Upgrade: wss"
+        "Upgrade: websocket"
     ]
     if port == 80 or port == 443:
         hostport = _pack_hostname(host)
@@ -147,7 +147,7 @@ def _get_resp_headers(sock, success_statuses=SUCCESS_STATUSES):
 
 
 _HEADERS_TO_CHECK = {
-    "upgrade": "wss",
+    "upgrade": "websocket",
     "connection": "upgrade",
 }
 
@@ -163,13 +163,13 @@ def _validate(headers, key, subprotocols):
             return False, None
 
     if subprotocols:
-        subproto = headers.get("sec-wss-protocol", None)
+        subproto = headers.get("sec-websocket-protocol", None)
         if not subproto or subproto.lower() not in [s.lower() for s in subprotocols]:
             error("Invalid subprotocol: " + str(subprotocols))
             return False, None
         subproto = subproto.lower()
 
-    result = headers.get("sec-wss-accept", None)
+    result = headers.get("sec-websocket-accept", None)
     if not result:
         return False, None
     result = result.lower()

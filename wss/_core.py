@@ -286,7 +286,7 @@ class WebSocket(object):
         """
         Send the data frame.
 
-        >>> ws = create_connection("ws://echo.wss.org/")
+        >>> ws = create_connection("ws://echo.websocket.org/")
         >>> frame = ABNF.create_frame("Hello", ABNF.OPCODE_TEXT)
         >>> ws.send_frame(frame)
         >>> cont_frame = ABNF.create_frame("My name is ", ABNF.OPCODE_CONT, 0)
@@ -536,7 +536,7 @@ def create_connection(url, timeout=None, class_=WebSocket, **options):
     You can customize using 'options'.
     If you set "header" list object, you can set your own custom header.
 
-    >>> conn = create_connection("ws://echo.wss.org/",
+    >>> conn = create_connection("ws://echo.websocket.org/",
          ...     header=["User-Agent: MyProgram",
          ...             "x-custom: header"])
 
