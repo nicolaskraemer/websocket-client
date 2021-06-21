@@ -158,7 +158,7 @@ def _open_socket(addrinfo_list, sockopt, timeout, source=None):
         family, socktype, proto = addrinfo[:3]
         sock = socket.socket(family, socktype, proto)
         if source is not None:
-            sock.bind((source, 1333))
+            sock.bind((source, 0))
 
         sock.settimeout(timeout)
         for opts in DEFAULT_SOCKET_OPTION:
