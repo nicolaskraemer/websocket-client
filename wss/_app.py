@@ -3,7 +3,7 @@
 """
 
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -93,7 +93,7 @@ class WebSocketApp(object):
     Higher level of APIs are provided. The interface is like JavaScript WebSocket object.
     """
 
-    def __init__(self, url, header=None,
+    def __init__(self, url, source=None, header=None,
                  on_open=None, on_message=None, on_error=None,
                  on_close=None, on_ping=None, on_pong=None,
                  on_cont_message=None,
@@ -108,9 +108,9 @@ class WebSocketApp(object):
         url: str
             Websocket url.
         header: list or dict
-            Custom header for websocket handshake.
+            Custom header for wss handshake.
         on_open: function
-            Callback object which is called at opening websocket.
+            Callback object which is called at opening wss.
             on_open has one argument.
             The 1st argument is this class object.
         on_message: function
@@ -157,6 +157,7 @@ class WebSocketApp(object):
             List of available sub protocols. Default is None.
         """
         self.url = url
+        self.source = source
         self.header = header if header is not None else []
         self.cookie = cookie
 
@@ -194,7 +195,7 @@ class WebSocketApp(object):
 
     def close(self, **kwargs):
         """
-        Close websocket connection.
+        Close wss connection.
         """
         self.keep_running = False
         if self.sock:
@@ -222,7 +223,7 @@ class WebSocketApp(object):
         """
         Run event loop for WebSocket framework.
 
-        This loop is an infinite loop and is alive while websocket is available.
+        This loop is an infinite loop and is alive while wss is available.
 
         Parameters
         ----------
@@ -310,7 +311,7 @@ class WebSocketApp(object):
                 enable_multithread=True)
             self.sock.settimeout(getdefaulttimeout())
             self.sock.connect(
-                self.url, header=self.header, cookie=self.cookie,
+                self.url, source=self.source, header=self.header, cookie=self.cookie,
                 http_proxy_host=http_proxy_host,
                 http_proxy_port=http_proxy_port, http_no_proxy=http_no_proxy,
                 http_proxy_auth=http_proxy_auth, subprotocols=self.subprotocols,

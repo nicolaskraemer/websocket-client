@@ -3,7 +3,7 @@ Define WebSocket exceptions
 """
 
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -81,6 +81,6 @@ class WebSocketBadStatusException(WebSocketException):
 
 class WebSocketAddressException(WebSocketException):
     """
-    If the websocket address info cannot be found, this exception will be raised.
+    If the wss address info cannot be found, this exception will be raised.
     """
     pass

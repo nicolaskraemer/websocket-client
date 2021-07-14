@@ -1,5 +1,5 @@
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -31,7 +31,7 @@ from ._socket import *
 
 __all__ = ["handshake_response", "handshake", "SUPPORTED_REDIRECT_STATUSES"]
 
-# websocket supported version.
+# wss supported version.
 VERSION = 13
 
 SUPPORTED_REDIRECT_STATUSES = (HTTPStatus.MOVED_PERMANENTLY, HTTPStatus.FOUND, HTTPStatus.SEE_OTHER,)

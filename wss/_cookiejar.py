@@ -3,7 +3,7 @@
 """
 
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 

@@ -24,7 +24,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 """
 import unittest
 
-from websocket._cookiejar import SimpleCookieJar
+from wss._cookiejar import SimpleCookieJar
 
 
 class CookieJarTest(unittest.TestCase):

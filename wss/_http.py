@@ -95,7 +95,7 @@ def _open_proxied_socket(url, options, proxy):
     return sock, (hostname, port, resource)
 
 
-def connect(url, options, proxy, socket):
+def connect(url, options, proxy, socket, source=None):
     if proxy.host and not socket and not (proxy.type == 'http'):
         return _open_proxied_socket(url, options, proxy)
 
@@ -112,7 +112,7 @@ def connect(url, options, proxy, socket):
 
     sock = None
     try:
-        sock = _open_socket(addrinfo_list, options.sockopt, options.timeout)
+        sock = _open_socket(addrinfo_list, options.sockopt, options.timeout, source=source)
         if need_tunnel:
             sock = _tunnel(sock, hostname, port, auth)
 
@@ -152,11 +152,14 @@ def _get_addrinfo_list(hostname, port, is_secure, proxy):
         raise WebSocketAddressException(e)
 
 
-def _open_socket(addrinfo_list, sockopt, timeout):
+def _open_socket(addrinfo_list, sockopt, timeout, source=None):
     err = None
     for addrinfo in addrinfo_list:
         family, socktype, proto = addrinfo[:3]
         sock = socket.socket(family, socktype, proto)
+        if source is not None:
+            sock.bind((source, 0))
+
         sock.settimeout(timeout)
         for opts in DEFAULT_SOCKET_OPTION:
             sock.setsockopt(*opts)

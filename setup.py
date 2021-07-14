@@ -27,22 +27,22 @@ import sys
 from setuptools import setup
 import pkg_resources
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 install_requires = []
 tests_require = []
 
 setup(
-    name="websocket-client",
+    name="websocket-source",
     version=VERSION,
-    description="WebSocket client for Python with low level API options",
+    description="WebSocket client for Python with possibility to specify source address",
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',
     author="liris",
     author_email="liris.pp@gmail.com",
     license="LGPL version 2.1",
-    url="https://github.com/websocket-client/websocket-client.git",
-    download_url='https://github.com/websocket-client/websocket-client/releases',
+    url="https://github.com/nicolaskraemer/websocket-client.git",
+    download_url='https://github.com/nicolaskraemer/websocket-client/releases',
     python_requires='>=3.6',
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -66,10 +66,10 @@ setup(
     keywords='websockets client',
     scripts=["bin/wsdump.py"],
     install_requires=install_requires,
-    packages=["websocket", "websocket.tests"],
+    packages=["wss", "wss.tests"],
     package_data={
-        'websocket.tests': ['data/*.txt']
+        'wss.tests': ['data/*.txt']
     },
     tests_require=tests_require,
-    test_suite="websocket.tests"
+    test_suite="wss.tests"
 )

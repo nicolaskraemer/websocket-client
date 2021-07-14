@@ -5,7 +5,7 @@ WebSocket Python client
 """
 
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -29,7 +29,7 @@ import struct
 import threading
 import time
 
-# websocket modules
+# wss modules
 from ._abnf import *
 from ._exceptions import *
 from ._handshake import *
@@ -51,8 +51,8 @@ class WebSocket(object):
     We can connect to the websocket server and send/receive data.
     The following example is an echo client.
 
-    >>> import websocket
-    >>> ws = websocket.WebSocket()
+    >>> import wss
+    >>> ws = wss.WebSocket()
     >>> ws.connect("ws://echo.websocket.org")
     >>> ws.send("Hello, Server")
     >>> ws.recv()
@@ -108,7 +108,7 @@ class WebSocket(object):
 
     def __iter__(self):
         """
-        Allow iteration over websocket, implying sequential `recv` executions.
+        Allow iteration over wss, implying sequential `recv` executions.
         """
         while True:
             yield self.recv()
@@ -139,7 +139,7 @@ class WebSocket(object):
 
     def gettimeout(self):
         """
-        Get the websocket timeout (in seconds) as an int or float
+        Get the wss timeout (in seconds) as an int or float
 
         Returns
         ----------
@@ -150,7 +150,7 @@ class WebSocket(object):
 
     def settimeout(self, timeout):
         """
-        Set the timeout to the websocket.
+        Set the timeout to the wss.
 
         Parameters
         ----------
@@ -201,13 +201,13 @@ class WebSocket(object):
 
     def connect(self, url, **options):
         """
-        Connect to url. url is websocket url scheme.
+        Connect to url. url is wss url scheme.
         ie. ws://host:port/resource
         You can customize using 'options'.
         If you set "header" list object, you can set your own custom header.
 
         >>> ws = WebSocket()
-        >>> ws.connect("ws://echo.websocket.org/",
+        >>> ws.connect("ws://echo.wss.org/",
                 ...     header=["User-Agent: MyProgram",
                 ...             "x-custom: header"])
 
@@ -245,8 +245,9 @@ class WebSocket(object):
             Pre-initialized stream socket.
         """
         self.sock_opt.timeout = options.get('timeout', self.sock_opt.timeout)
+        source = options.get('source')
         self.sock, addrs = connect(url, self.sock_opt, proxy_info(**options),
-                                   options.pop('socket', None))
+                                   options.pop('socket', None), source=source)
 
         try:
             self.handshake_response = handshake(self.sock, *addrs, **options)
@@ -526,7 +527,7 @@ class WebSocket(object):
 
 def create_connection(url, timeout=None, class_=WebSocket, **options):
     """
-    Connect to url and return websocket object.
+    Connect to url and return wss object.
 
     Connect to url and return the WebSocket object.
     Passing optional timeout parameter will set the timeout on the socket.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-websocket - WebSocket client library for Python
+wss - WebSocket client library for Python
 
 Copyright (C) 2010 Hiroki Ohtani(liris)
 
@@ -31,7 +31,7 @@ import gzip
 import zlib
 from urllib.parse import urlparse
 
-import websocket
+import wss
 
 try:
     import readline
@@ -47,7 +47,7 @@ def get_encoding():
         return encoding.lower()
 
 
-OPCODE_DATA = (websocket.ABNF.OPCODE_TEXT, websocket.ABNF.OPCODE_BINARY)
+OPCODE_DATA = (wss.ABNF.OPCODE_TEXT, wss.ABNF.OPCODE_BINARY)
 ENCODING = get_encoding()
 
 
@@ -66,13 +66,13 @@ class VAction(argparse.Action):
 def parse_args():
     parser = argparse.ArgumentParser(description="WebSocket Simple Dump Tool")
     parser.add_argument("url", metavar="ws_url",
-                        help="websocket url. ex. ws://echo.websocket.org/")
+                        help="wss url. ex. ws://echo.wss.org/")
     parser.add_argument("-p", "--proxy",
                         help="proxy url. ex. http://127.0.0.1:8080")
     parser.add_argument("-v", "--verbose", default=0, nargs='?', action=VAction,
                         dest="verbose",
                         help="set verbose mode. If set to 1, show opcode. "
-                        "If set to 2, enable to trace  websocket module")
+                        "If set to 2, enable to trace  wss module")
     parser.add_argument("-n", "--nocert", action='store_true',
                         help="Ignore invalid SSL cert")
     parser.add_argument("-r", "--raw", action="store_true",
@@ -134,7 +134,7 @@ def main():
     start_time = time.time()
     args = parse_args()
     if args.verbose > 1:
-        websocket.enableTrace(True)
+        wss.enableTrace(True)
     options = {}
     if args.proxy:
         p = urlparse(args.proxy)
@@ -149,7 +149,7 @@ def main():
         opts = {"cert_reqs": ssl.CERT_NONE, "check_hostname": False}
     if args.headers:
         options['header'] = list(map(str.strip, args.headers.split(',')))
-    ws = websocket.create_connection(args.url, sslopt=opts, **options)
+    ws = wss.create_connection(args.url, sslopt=opts, **options)
     if args.raw:
         console = NonInteractive()
     else:
@@ -159,16 +159,16 @@ def main():
     def recv():
         try:
             frame = ws.recv_frame()
-        except websocket.WebSocketException:
-            return websocket.ABNF.OPCODE_CLOSE, None
+        except wss.WebSocketException:
+            return wss.ABNF.OPCODE_CLOSE, None
         if not frame:
-            raise websocket.WebSocketException("Not a valid frame %s" % frame)
+            raise wss.WebSocketException("Not a valid frame %s" % frame)
         elif frame.opcode in OPCODE_DATA:
             return frame.opcode, frame.data
-        elif frame.opcode == websocket.ABNF.OPCODE_CLOSE:
+        elif frame.opcode == wss.ABNF.OPCODE_CLOSE:
             ws.send_close()
             return frame.opcode, None
-        elif frame.opcode == websocket.ABNF.OPCODE_PING:
+        elif frame.opcode == wss.ABNF.OPCODE_PING:
             ws.pong(frame.data)
             return frame.opcode, frame.data
 
@@ -178,7 +178,7 @@ def main():
         while True:
             opcode, data = recv()
             msg = None
-            if opcode == websocket.ABNF.OPCODE_TEXT and isinstance(data, bytes):
+            if opcode == wss.ABNF.OPCODE_TEXT and isinstance(data, bytes):
                 data = str(data, "utf-8")
             if isinstance(data, bytes) and len(data) > 2 and data[:2] == b'\037\213':  # gzip magick
                 try:
@@ -195,7 +195,7 @@ def main():
                 data = repr(data)
 
             if args.verbose:
-                msg = "%s: %s" % (websocket.ABNF.OPCODE_MAP.get(opcode), data)
+                msg = "%s: %s" % (wss.ABNF.OPCODE_MAP.get(opcode), data)
             else:
                 msg = data
 
@@ -205,7 +205,7 @@ def main():
                 else:
                     console.write(msg)
 
-            if opcode == websocket.ABNF.OPCODE_CLOSE:
+            if opcode == wss.ABNF.OPCODE_CLOSE:
                 break
 
     thread = threading.Thread(target=recv_ws)

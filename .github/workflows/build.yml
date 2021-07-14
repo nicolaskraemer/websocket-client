@@ -1,4 +1,4 @@
-name: websocket-client build and test
+name: wss-client build and test
 
 on: [push, pull_request]
 
@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Build websocket-client & run tests
+      - name: Build wss-client & run tests
         run: |
           pip3 install -U pip setuptools wheel readme_renderer twine pytest PySocks
           python3 -c "import setuptools; print('Setup tools version'); print(setuptools.__version__)"

@@ -30,11 +30,11 @@ sys.path[0:0] = [""]
 import os
 import os.path
 import socket
-import websocket as ws
-from websocket._handshake import _create_sec_websocket_key, \
+import wss as ws
+from wss._handshake import _create_sec_websocket_key, \
     _validate as _validate_header
-from websocket._http import read_headers
-from websocket._utils import validate_utf8
+from wss._http import read_headers
+from wss._utils import validate_utf8
 from base64 import decodebytes as base64decode
 
 import unittest

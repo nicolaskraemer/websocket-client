@@ -61,7 +61,8 @@ The WebSocketApp `run_forever` loop automatically tries to reconnect when a
 connection is lost, and provides a variety of event-based connection controls.
 
 ```python
-import websocket
+```python
+import wss
 try:
     import thread
 except ImportError:
@@ -88,8 +89,8 @@ def on_open(ws):
     thread.start_new_thread(run, ())
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://echo.websocket.org/",
+    wss.enableTrace(True)
+    ws = wss.WebSocketApp("ws://echo.websocket.org/",
                               on_open=on_open,
                               on_message=on_message,
                               on_error=on_error,
@@ -105,7 +106,8 @@ immediately when done. For example, if you want to confirm that a WebSocket
 server is running and responds properly to a specific request.
 
 ```python
-from websocket import create_connection
+```python
+from wss import create_connection
 ws = create_connection("ws://echo.websocket.org/")
 print("Sending 'Hello, World'...")
 ws.send("Hello, World")
@@ -119,7 +121,8 @@ ws.close()
 If you want to customize socket options, set sockopt, as seen below:
 
 ```python
-from websocket import create_connection
+```python
+from wss import create_connection
 ws = create_connection("ws://echo.websocket.org/",
                         sockopt=((socket.IPPROTO_TCP, socket.TCP_NODELAY),))
 ```
